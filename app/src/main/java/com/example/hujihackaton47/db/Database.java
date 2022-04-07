@@ -6,6 +6,7 @@ import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 
 import com.example.hujihackaton47.models.Item;
+import com.example.hujihackaton47.models.User;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.EventListener;
@@ -22,13 +23,14 @@ import java.util.UUID;
 public class Database implements IDataBase{
     private static Database instance;
     private Map<String, Item> items = new HashMap<>();
-    private MutableLiveData<List<Item>> mutableLiveData = new MutableLiveData<>();
+    private Map<String, User> users = new HashMap<>();
+    private MutableLiveData<List<Item>> itemsMutableLiveData = new MutableLiveData<>();
     private FirebaseFirestore firestore;
 
 
     // items in firestore: items/
     private Database() {
-        mutableLiveData.setValue(new ArrayList<>());
+        itemsMutableLiveData.setValue(new ArrayList<>());
         firestore = FirebaseFirestore.getInstance();
         Log.d(Database.class.toString(), "fire" + firestore);
         firestore.collection("items").addSnapshotListener(new EventListener<QuerySnapshot>() {
@@ -46,7 +48,7 @@ public class Database implements IDataBase{
                         items.put(item.getId(), item);
                     }
                 }
-                mutableLiveData.setValue(new ArrayList<>(items.values()));
+                itemsMutableLiveData.setValue(new ArrayList<>(items.values()));
             }
 
         });
@@ -69,39 +71,38 @@ public class Database implements IDataBase{
 
     public void deleteItem(Item item) {
         items.remove(item.getId());
-        mutableLiveData.setValue(new ArrayList<>(items.values()));
+        itemsMutableLiveData.setValue(new ArrayList<>(items.values()));
         firestore.collection("items").document(item.getId()).delete();
     }
 
     public void addItem(Item item) {
         String newId = UUID.randomUUID().toString();
         items.put(newId, item);
-        mutableLiveData.setValue(new ArrayList<>());
+        itemsMutableLiveData.setValue(new ArrayList<>());
         firestore.collection("items").document(item.getId()).set(item);
     }
 
     public LiveData<List<Item>> getItemsLiveData() {
-        return mutableLiveData;
+        return itemsMutableLiveData;
     }
 
-//    public LiveData<Item> getLiveDataItem(String itemId) {
-//        MutableLiveData<Item> mutableLiveDataItem = new MutableLiveData<>(items.get(itemId));
-//        firestore.collection("items").document(itemId).addSnapshotListener((v, err) -> {
-//            System.out.println("3");
-//            if (err != null) {
-//                Log.e(Database.class.toString(), "failure" + itemId + " from db due to the err: " + err);
-//            } else {
-//                System.out.println("4");
-//                assert v != null;
-//                Item item = v.toObject(Item.class);
-//                if (item == null) {
-//                    Log.e(Database.class.toString(), "Fail to extract " + itemId);
-//                }
-//                Log.d(Database.class.toString(), "Item extracted successfully");
-//            }
-//        });
-//        return mutableLiveDataItem;
-//    }
+    public LiveData<List<Item>> getLiveDataItemsByName(String name) {
 
+        Task<QuerySnapshot> querySnapshotTask = firestore.collection("items").whereEqualTo("name", name).get();
+        querySnapshotTask.addOnSuccessListener(items -> {
+            itemsMutableLiveData.setValue(items.toObjects(Item.class));
+        });
+        querySnapshotTask.addOnFailureListener(null /* TODO complete[noamkesten]*/);
+
+        return itemsMutableLiveData;
+    }
+    
+    // Users
+    public void addUser(User user) {
+        String newId = UUID.randomUUID().toString();
+        users.put(newId, user);
+        itemsMutableLiveData.setValue(new ArrayList<>());
+        firestore.collection("users").document(user.getId()).set(user);
+    }
 }
 

@@ -3,6 +3,7 @@ package com.example.hujihackaton47;
 import android.content.Intent;
 import android.os.Bundle;
 
+import com.example.hujihackaton47.adapters.ResultItemAdapter;
 import com.example.hujihackaton47.db.Database;
 import com.example.hujihackaton47.models.Item;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -10,18 +11,25 @@ import com.google.android.material.snackbar.Snackbar;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.util.Log;
 import android.view.View;
 
+import androidx.cardview.widget.CardView;
 import androidx.lifecycle.LiveData;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.hujihackaton47.databinding.ActivityMainBinding;
 
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.SearchView;
+
+import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -30,22 +38,12 @@ public class MainActivity extends AppCompatActivity {
 
     private AppBarConfiguration appBarConfiguration;
     private ActivityMainBinding binding;
+    private ResultItemAdapter adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        // Timna
-        // got it as default
 
-//        binding = ActivityMainBinding.inflate(getLayoutInflater());
-//        setContentView(binding.getRoot());
-////
-//        setSupportActionBar(binding.toolbar);
-////
-//        NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_content_main);
-//        appBarConfiguration = new AppBarConfiguration.Builder(navController.getGraph()).build();
-//        NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration);
-//
         // our code
         setContentView(R.layout.activity_main);
         db = Database.getInstance();
@@ -53,6 +51,15 @@ public class MainActivity extends AppCompatActivity {
         // set ui components
         FloatingActionButton addItemFab = findViewById(R.id.fab_add_item);
         FloatingActionButton orderItemFab = findViewById(R.id.fab_order_item);
+        FloatingActionButton addMockItem = findViewById(R.id.fab_add_mock_item);
+        CardView profileIconCardView = (CardView) findViewById(R.id.profile_icon);
+        SearchView simpleSearchView = (SearchView) findViewById(R.id.simpleSearchView); // inititate a search view
+
+        // recycler view
+        RecyclerView recyclerView = findViewById(R.id.item_recycler_view);
+        adapter = new ResultItemAdapter(null);
+        recyclerView.setAdapter( adapter);
+
 
 
         // add item click
@@ -77,17 +84,67 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        // profile
+        profileIconCardView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MainActivity.this, ProfileActivity.class);
+                startActivity(intent);
+            }
+        });
+
+        // add mock item
+        addMockItem.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Snackbar.make(view, "Clicked on Order Item Fab", Snackbar.LENGTH_LONG)
+                        .setAction("Action", null).show();
+                db.addItem(new Item("go pro", "", 10, null, "this go pro was bought in 2018, it's go pro 5", "5"));
+                Intent intent = new Intent(MainActivity.this, SignUpActivity.class);
+                startActivity(intent);
+            }
+        });
+
+        // perform set on query text listener event
+        simpleSearchView.setOnQueryTextListener(
+                new SearchView.OnQueryTextListener() {
+                    @Override
+                    public boolean onQueryTextSubmit(String query) {
+                        // do something on text submit
+                        db.getLiveDataItemsByName("default");
+                        Log.d("ActivityMain", "onQueryTextSubmit: " + query);
+                        getAdapter(query);
+                        recyclerView.setAdapter( adapter);
+                        recyclerView.setLayoutManager(new LinearLayoutManager(MainActivity.this, RecyclerView.VERTICAL, false));
+
+                        return false;
+                    }
+
+                    @Override
+                    public boolean onQueryTextChange(String newText) {
+
+                        Log.d("ActivityMain", "onQueryTextSubmit:" + newText);
+                        return false;
+                    }
+                });
 
     }
 
+    private RecyclerView.Adapter getAdapter(String name) {
+
+        LiveData<List<Item>> itemsLiveData = db.getLiveDataItemsByName(name);
+
+        itemsLiveData.observeForever(items -> {
+        if (items == null){
+            Log.e("Main", "vsfdvvdvsdsdsvsddssd");
+        }
+            adapter.setItems(items);
+        });
+        Log.d("ActivityMain", "adapter:" + adapter);
+        return adapter;
+    }
+
     // write code here
-
-
-
-
-
-
-
 
 
     // not out code
