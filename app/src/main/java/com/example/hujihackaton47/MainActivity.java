@@ -10,6 +10,7 @@ import com.google.android.material.snackbar.Snackbar;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.util.Log;
 import android.view.View;
 
 import androidx.lifecycle.LiveData;
@@ -22,6 +23,7 @@ import com.example.hujihackaton47.databinding.ActivityMainBinding;
 
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.SearchView;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -34,18 +36,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        // Timna
-        // got it as default
 
-//        binding = ActivityMainBinding.inflate(getLayoutInflater());
-//        setContentView(binding.getRoot());
-////
-//        setSupportActionBar(binding.toolbar);
-////
-//        NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_content_main);
-//        appBarConfiguration = new AppBarConfiguration.Builder(navController.getGraph()).build();
-//        NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration);
-//
         // our code
         setContentView(R.layout.activity_main);
         db = Database.getInstance();
@@ -53,6 +44,7 @@ public class MainActivity extends AppCompatActivity {
         // set ui components
         FloatingActionButton addItemFab = findViewById(R.id.fab_add_item);
         FloatingActionButton orderItemFab = findViewById(R.id.fab_order_item);
+        SearchView simpleSearchView = (SearchView) findViewById(R.id.simpleSearchView); // inititate a search view
 
 
         // add item click
@@ -78,16 +70,29 @@ public class MainActivity extends AppCompatActivity {
         });
 
 
+        // perform set on query text listener event
+        simpleSearchView.setOnQueryTextListener(
+                new SearchView.OnQueryTextListener() {
+                    @Override
+                    public boolean onQueryTextSubmit(String query) {
+                        // do something on text submit
+                        db.getLiveDataItemsByName("default");
+                        Log.d("ActivityMain", "onQueryTextSubmit: " + query);
+
+                        return false;
+                    }
+
+                    @Override
+                    public boolean onQueryTextChange(String newText) {
+
+                        Log.d("ActivityMain", "onQueryTextSubmit:" + newText);
+                        return false;
+                    }
+                });
+
     }
 
     // write code here
-
-
-
-
-
-
-
 
 
     // not out code

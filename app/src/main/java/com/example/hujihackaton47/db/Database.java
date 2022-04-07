@@ -6,6 +6,7 @@ import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 
 import com.example.hujihackaton47.models.Item;
+import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.EventListener;
@@ -18,6 +19,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 public class Database implements IDataBase{
     private static Database instance;
@@ -84,24 +86,15 @@ public class Database implements IDataBase{
         return mutableLiveData;
     }
 
-//    public LiveData<Item> getLiveDataItem(String itemId) {
-//        MutableLiveData<Item> mutableLiveDataItem = new MutableLiveData<>(items.get(itemId));
-//        firestore.collection("items").document(itemId).addSnapshotListener((v, err) -> {
-//            System.out.println("3");
-//            if (err != null) {
-//                Log.e(Database.class.toString(), "failure" + itemId + " from db due to the err: " + err);
-//            } else {
-//                System.out.println("4");
-//                assert v != null;
-//                Item item = v.toObject(Item.class);
-//                if (item == null) {
-//                    Log.e(Database.class.toString(), "Fail to extract " + itemId);
-//                }
-//                Log.d(Database.class.toString(), "Item extracted successfully");
-//            }
-//        });
-//        return mutableLiveDataItem;
-//    }
+    public LiveData<List<Item>> getLiveDataItemsByName(String name) {
 
+        Task<QuerySnapshot> querySnapshotTask = firestore.collection("items").whereEqualTo("name", name).get();
+        querySnapshotTask.addOnSuccessListener(items -> {
+            mutableLiveData.setValue(items.toObjects(Item.class));
+        });
+        querySnapshotTask.addOnFailureListener(null /* TODO complete[noamkesten]*/);
+
+        return mutableLiveData;
+    }
 }
 
