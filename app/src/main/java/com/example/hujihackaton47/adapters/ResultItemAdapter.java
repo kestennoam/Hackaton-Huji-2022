@@ -1,6 +1,7 @@
 package com.example.hujihackaton47.adapters;
 
 import android.annotation.SuppressLint;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -26,7 +27,7 @@ public class ResultItemAdapter extends RecyclerView.Adapter<ResultItemViewHolder
 
     public ResultItemAdapter(@NonNull IResultItemAdapterListener listener) {
         this.db = Database.getInstance();
-        this.listener =  listener;
+        this.listener = listener;
     }
 
     @NonNull
@@ -40,15 +41,21 @@ public class ResultItemAdapter extends RecyclerView.Adapter<ResultItemViewHolder
     @Override
     public void onBindViewHolder(@NonNull ResultItemViewHolder holder, int position) {
         Item item = items.get(position);
-
+        Log.d("ResultItemAdapter", "item: " + item);
         holder.getNameValueTextView().setText(item.getName());
         holder.getOwnerValueTextView().setText("Noam Kesten");
-        holder.getPriceValueTextView().setText(item.getPrice());
+        holder.getPriceValueTextView().setText(String.valueOf(item.getPrice()));
         holder.getDescriptionValueTextView().setText(item.getDescription());
     }
 
     @Override
     public int getItemCount() {
         return items.size();
+    }
+
+    public void setItems(List<Item> items) {
+        this.items.clear();
+        this.items.addAll(items);
+        notifyDataSetChanged();
     }
 }

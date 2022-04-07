@@ -14,6 +14,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 
+import androidx.cardview.widget.CardView;
 import androidx.lifecycle.LiveData;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
@@ -37,6 +38,7 @@ public class MainActivity extends AppCompatActivity {
 
     private AppBarConfiguration appBarConfiguration;
     private ActivityMainBinding binding;
+    private ResultItemAdapter adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,12 +52,15 @@ public class MainActivity extends AppCompatActivity {
         FloatingActionButton addItemFab = findViewById(R.id.fab_add_item);
         FloatingActionButton orderItemFab = findViewById(R.id.fab_order_item);
         FloatingActionButton addMockItem = findViewById(R.id.fab_add_mock_item);
+        CardView profileIconCardView = (CardView) findViewById(R.id.profile_icon);
         SearchView simpleSearchView = (SearchView) findViewById(R.id.simpleSearchView); // inititate a search view
 
         // recycler view
-        RecyclerView recyclerView = findViewById(R.id.recycler_view);
-//        recyclerView.setAdapter(getAdapter());
-//        recyclerView.setLayoutManager(new LinearLayoutManager(this, RecyclerView.HORIZONTAL, false));
+        RecyclerView recyclerView = findViewById(R.id.item_recycler_view);
+        adapter = new ResultItemAdapter(null);
+        recyclerView.setAdapter( adapter);
+
+
 
         // add item click
         addItemFab.setOnClickListener(new View.OnClickListener() {
@@ -79,6 +84,15 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        // profile
+        profileIconCardView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MainActivity.this, ProfileActivity.class);
+                startActivity(intent);
+            }
+        });
+
         // add mock item
         addMockItem.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -86,6 +100,8 @@ public class MainActivity extends AppCompatActivity {
                 Snackbar.make(view, "Clicked on Order Item Fab", Snackbar.LENGTH_LONG)
                         .setAction("Action", null).show();
                 db.addItem(new Item("go pro", "", 10, null, "this go pro was bought in 2018, it's go pro 5", "5"));
+                Intent intent = new Intent(MainActivity.this, SignUpActivity.class);
+                startActivity(intent);
             }
         });
 
@@ -97,6 +113,9 @@ public class MainActivity extends AppCompatActivity {
                         // do something on text submit
                         db.getLiveDataItemsByName("default");
                         Log.d("ActivityMain", "onQueryTextSubmit: " + query);
+                        getAdapter(query);
+                        recyclerView.setAdapter( adapter);
+                        recyclerView.setLayoutManager(new LinearLayoutManager(MainActivity.this, RecyclerView.VERTICAL, false));
 
                         return false;
                     }
@@ -111,10 +130,19 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-//    private RecyclerView.Adapter getAdapter() {
-//        ResultItemAdapter adapter = new ResultItemAdapter(null);
-//        LiveData<List<Item>> itemsLiveData = db.getLiveDataPendingRequestsOfBabysitter(babysitter.getUuid());
-//    }
+    private RecyclerView.Adapter getAdapter(String name) {
+
+        LiveData<List<Item>> itemsLiveData = db.getLiveDataItemsByName(name);
+
+        itemsLiveData.observeForever(items -> {
+        if (items == null){
+            Log.e("Main", "vsfdvvdvsdsdsvsddssd");
+        }
+            adapter.setItems(items);
+        });
+        Log.d("ActivityMain", "adapter:" + adapter);
+        return adapter;
+    }
 
     // write code here
 

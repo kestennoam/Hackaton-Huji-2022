@@ -14,6 +14,17 @@
             android:name="OrderItemActivity"
             android:label="OrderItemActivity"
             tools:ignore="Instantiatable" />
+
+        <activity
+            android:name="ProfileActivity"
+            android:label="ProfileActivity"
+            tools:ignore="Instantiatable" />
+
+        <activity
+            android:name="SignUpActivity"
+            android:label="SignUpActivity"
+            tools:ignore="Instantiatable" />
+
         <activity
             android:name="AddItemActivity"
             android:label="AddItemActivity"
