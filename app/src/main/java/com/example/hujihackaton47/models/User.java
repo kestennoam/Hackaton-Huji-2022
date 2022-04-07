@@ -6,16 +6,18 @@ public class User {
     private final String id;
     private String firstName;
     private String lastName;
+    private String password;
     private String emailAddress;
     private String phoneNumber;
     private String location;
     //TODO Change to image
     private String image;
 
-    public User(String firstName, String lastName, String emailAddress, String phoneNumber, String location, String image) {
+    public User(String firstName, String lastName,String password, String emailAddress, String phoneNumber, String location, String image) {
         this.id = UUID.randomUUID().toString();
         this.firstName = firstName;
         this.lastName = lastName;
+        this.password = password;
         this.emailAddress = emailAddress;
         this.phoneNumber = phoneNumber;
         this.location = location;
@@ -72,5 +74,13 @@ public class User {
 
     public void setImage(String image) {
         this.image = image;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
     }
 }
