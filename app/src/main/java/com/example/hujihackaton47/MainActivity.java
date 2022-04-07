@@ -1,13 +1,18 @@
 package com.example.hujihackaton47;
 
+import android.content.Intent;
 import android.os.Bundle;
 
+import com.example.hujihackaton47.db.Database;
+import com.example.hujihackaton47.models.Item;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.view.View;
 
+import androidx.lifecycle.LiveData;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
@@ -20,6 +25,9 @@ import android.view.MenuItem;
 
 public class MainActivity extends AppCompatActivity {
 
+    Database db;
+    LiveData<Item> itemLiveData;
+
     private AppBarConfiguration appBarConfiguration;
     private ActivityMainBinding binding;
 
@@ -27,24 +35,62 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        binding = ActivityMainBinding.inflate(getLayoutInflater());
-        setContentView(binding.getRoot());
+        // got it as default
 
-        setSupportActionBar(binding.toolbar);
+//        binding = ActivityMainBinding.inflate(getLayoutInflater());
+//        setContentView(binding.getRoot());
+////
+//        setSupportActionBar(binding.toolbar);
+////
+//        NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_content_main);
+//        appBarConfiguration = new AppBarConfiguration.Builder(navController.getGraph()).build();
+//        NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration);
+//
+        // our code
+        setContentView(R.layout.activity_main);
+        db = Database.getInstance();
 
-        NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_content_main);
-        appBarConfiguration = new AppBarConfiguration.Builder(navController.getGraph()).build();
-        NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration);
+        // set ui components
+        FloatingActionButton addItemFab = findViewById(R.id.fab_add_item);
+        FloatingActionButton orderItemFab = findViewById(R.id.fab_order_item);
 
-        binding.fab.setOnClickListener(new View.OnClickListener() {
+
+        // add item click
+        addItemFab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
+                Snackbar.make(view, "Clicked on Add Item Fab", Snackbar.LENGTH_LONG)
                         .setAction("Action", null).show();
+                Intent intent = new Intent(MainActivity.this, AddItemActivity.class);
+                startActivity(intent);
             }
         });
+
+        // order item click
+        orderItemFab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Snackbar.make(view, "Clicked on Order Item Fab", Snackbar.LENGTH_LONG)
+                        .setAction("Action", null).show();
+                Intent intent = new Intent(MainActivity.this, OrderItemActivity.class);
+                startActivity(intent);
+            }
+        });
+
+
     }
 
+    // write code here
+
+
+
+
+
+
+
+
+
+    // not out code
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
