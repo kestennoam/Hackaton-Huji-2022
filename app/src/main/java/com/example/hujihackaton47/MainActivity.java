@@ -3,6 +3,7 @@ package com.example.hujihackaton47;
 import android.content.Intent;
 import android.os.Bundle;
 
+import com.example.hujihackaton47.adapters.ResultItemAdapter;
 import com.example.hujihackaton47.db.Database;
 import com.example.hujihackaton47.models.Item;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -18,12 +19,16 @@ import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.hujihackaton47.databinding.ActivityMainBinding;
 
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.SearchView;
+
+import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -44,8 +49,13 @@ public class MainActivity extends AppCompatActivity {
         // set ui components
         FloatingActionButton addItemFab = findViewById(R.id.fab_add_item);
         FloatingActionButton orderItemFab = findViewById(R.id.fab_order_item);
+        FloatingActionButton addMockItem = findViewById(R.id.fab_add_mock_item);
         SearchView simpleSearchView = (SearchView) findViewById(R.id.simpleSearchView); // inititate a search view
 
+        // recycler view
+        RecyclerView recyclerView = findViewById(R.id.recycler_view);
+//        recyclerView.setAdapter(getAdapter());
+//        recyclerView.setLayoutManager(new LinearLayoutManager(this, RecyclerView.HORIZONTAL, false));
 
         // add item click
         addItemFab.setOnClickListener(new View.OnClickListener() {
@@ -69,6 +79,15 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        // add mock item
+        addMockItem.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Snackbar.make(view, "Clicked on Order Item Fab", Snackbar.LENGTH_LONG)
+                        .setAction("Action", null).show();
+                db.addItem(new Item("go pro", "", 10, null, "this go pro was bought in 2018, it's go pro 5", "5"));
+            }
+        });
 
         // perform set on query text listener event
         simpleSearchView.setOnQueryTextListener(
@@ -92,8 +111,12 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-    // write code here
+//    private RecyclerView.Adapter getAdapter() {
+//        ResultItemAdapter adapter = new ResultItemAdapter(null);
+//        LiveData<List<Item>> itemsLiveData = db.getLiveDataPendingRequestsOfBabysitter(babysitter.getUuid());
+//    }
 
+    // write code here
 
 
     // not out code

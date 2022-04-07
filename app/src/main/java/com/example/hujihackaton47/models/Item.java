@@ -24,7 +24,7 @@ public class Item implements Serializable {
         this.id = UUID.randomUUID().toString();
         this.name = name;
         this.tags = new ArrayList<String>();
-        this.tags.addAll(tags);
+//        this.tags.addAll(tags);
         this.image = image;
         this.price = price;
         this.description = description;
