@@ -34,7 +34,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
+        // Timna
         // got it as default
 
 //        binding = ActivityMainBinding.inflate(getLayoutInflater());
