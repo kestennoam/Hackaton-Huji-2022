@@ -12,17 +12,21 @@ public class Item implements Serializable {
     private int price;
     private ArrayList<String> tags;
     private String description;
+    private String ownerId;
+    private String renterId;
 
 
-    public Item(String name, String image, int price, ArrayList<String> tags, String description){
+    public Item(String name, String image, int price, ArrayList<String> tags, String description, String ownerId, String renterId){
+        this.renterId = renterId;
         this.id = UUID.randomUUID().toString();
         this.name = name;
         this.tags = new ArrayList<String>();
         this.description = description;
+        this.ownerId = ownerId;
     }
 
     public Item() {
-        this("default item", "image", 100, null, "");
+        this("default item", "image", 100, null, "", "", "");
     }
 
     public Item(Item o) {
@@ -31,6 +35,10 @@ public class Item implements Serializable {
         this.image = o.image;
         this.price = o.price;
         this.tags = new ArrayList<String>(tags);
+        this.description = o.description;
+        this.ownerId = o.ownerId;
+        this.renterId = o.renterId;
+
     }
 
     @Override
@@ -82,5 +90,13 @@ public class Item implements Serializable {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public String getOwnerId() {
+        return ownerId;
+    }
+
+    public void setOwnerId(String ownerId) {
+        this.ownerId = ownerId;
     }
 }
