@@ -1,6 +1,8 @@
 package com.example.hujihackaton47.models;
 
 
+import androidx.annotation.NonNull;
+
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.UUID;
@@ -13,20 +15,26 @@ public class Item implements Serializable {
     private ArrayList<String> tags;
     private String description;
     private String ownerId;
-    private String renterId;
+//    private String renterId;
+    private Boolean isAvailable;
 
 
-    public Item(String name, String image, int price, ArrayList<String> tags, String description, String ownerId, String renterId){
-        this.renterId = renterId;
+
+    public Item(String name, String image, int price, ArrayList<String> tags, String description, String ownerId){
         this.id = UUID.randomUUID().toString();
         this.name = name;
         this.tags = new ArrayList<String>();
+        this.tags.addAll(tags);
+        this.image = image;
+        this.price = price;
         this.description = description;
         this.ownerId = ownerId;
+//        this.renterId = "";
+        this.isAvailable = true;
     }
 
     public Item() {
-        this("default item", "image", 100, null, "", "", "");
+        this("default item", "image", 100, null, "", "");
     }
 
     public Item(Item o) {
@@ -37,7 +45,7 @@ public class Item implements Serializable {
         this.tags = new ArrayList<String>(tags);
         this.description = o.description;
         this.ownerId = o.ownerId;
-        this.renterId = o.renterId;
+//        this.renterId = o.renterId;
 
     }
 
@@ -49,6 +57,9 @@ public class Item implements Serializable {
                 ", image='" + image + '\'' +
                 ", price=" + price +
                 ", tags=" + tags +
+                ", description='" + description + '\'' +
+                ", ownerId='" + ownerId + '\'' +
+                ", isAvailable=" + isAvailable +
                 '}';
     }
 
@@ -98,5 +109,13 @@ public class Item implements Serializable {
 
     public void setOwnerId(String ownerId) {
         this.ownerId = ownerId;
+    }
+
+    public Boolean getAvailable() {
+        return isAvailable;
+    }
+
+    public void setAvailable(Boolean available) {
+        isAvailable = available;
     }
 }
