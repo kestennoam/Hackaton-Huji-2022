@@ -1,6 +1,7 @@
 package com.example.hujihackaton47;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Build;
@@ -36,7 +37,7 @@ public class AddItemActivity extends AppCompatActivity {
         // set logic components
         db = Database.getInstance();
         sp = PreferenceManager.getDefaultSharedPreferences(this);
-        paymentLiveData = new MutableLiveData<>(10);
+
 
         // Buttons etc.
         ActivityResultLauncher<String> stringActivityResultLauncher = registerForActivityResult(new ActivityResultContracts.GetContent(), new ActivityResultCallback<Uri>() {
@@ -48,9 +49,10 @@ public class AddItemActivity extends AppCompatActivity {
         });
 
         // set ui components
+        paymentLiveData = new MutableLiveData<>(10);
         EditText ItemName = findViewById(R.id.AddItemName);
         EditText ItemDescription = findViewById(R.id.AddItemDescription);
-        EditText ItemPrice = findViewById(R.id.AddItemPrice);
+//        EditText ItemPrice = findViewById(R.id.AddItemPrice);
         View ItemImage = findViewById(R.id.AddItemImageButton);
         Button addItemButton = findViewById(R.id.AddItemButton);
         TextView titleTextView = findViewById(R.id.PriceTitle);
@@ -59,7 +61,7 @@ public class AddItemActivity extends AppCompatActivity {
         paymentSlider.setValue(10);
         paymentSlider.addOnChangeListener((slider, value, fromUser) -> {
             paymentLiveData.setValue((int) value);
-            titleTextView.setText(R.string.price_title +" " + (int) value+"$");
+            titleTextView.setText(getString(R.string.price_title) + " - " + (int) value+"$");
 
         });
 
@@ -72,7 +74,11 @@ public class AddItemActivity extends AppCompatActivity {
         });
 
         addItemButton.setOnClickListener(v -> {
-            db.addItem(new Item(ItemName.getText().toString(), "ItemImage", 5, null, ItemDescription.getText().toString(), "5"));
+            db.addItem(new Item(ItemName.getText().toString(), "ItemImage", paymentLiveData.getValue(), null, ItemDescription.getText().toString(), "5"));
+            finish();
+//            Intent intent = new Intent(this, AddItemActivity.class);
+//            startActivity(intent);
+
         });
     }
 
