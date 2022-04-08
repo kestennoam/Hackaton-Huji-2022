@@ -1,8 +1,9 @@
 package com.example.hujihackaton47.models;
 
+import java.io.Serializable;
 import java.util.UUID;
 
-public class User {
+public class User implements Serializable {
     private final String id;
     private String firstName;
     private String lastName;
@@ -13,6 +14,17 @@ public class User {
     //TODO Change to image
     private String image;
 
+    public User(String id,String firstName, String lastName,String password, String emailAddress, String phoneNumber, String location, String image) {
+        this.id = id;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.password = password;
+        this.emailAddress = emailAddress;
+        this.phoneNumber = phoneNumber;
+        this.location = location;
+        this.image = image;
+    }
+
     public User(String firstName, String lastName,String password, String emailAddress, String phoneNumber, String location, String image) {
         this.id = UUID.randomUUID().toString();
         this.firstName = firstName;
@@ -22,6 +34,20 @@ public class User {
         this.phoneNumber = phoneNumber;
         this.location = location;
         this.image = image;
+    }
+
+    @Override
+    public String toString() {
+        return "User{" +
+                "id='" + id + '\'' +
+                ", firstName='" + firstName + '\'' +
+                ", lastName='" + lastName + '\'' +
+                ", password='" + password + '\'' +
+                ", emailAddress='" + emailAddress + '\'' +
+                ", phoneNumber='" + phoneNumber + '\'' +
+                ", location='" + location + '\'' +
+                ", image='" + image + '\'' +
+                '}';
     }
 
     public String getId() {

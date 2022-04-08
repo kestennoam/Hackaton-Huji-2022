@@ -23,6 +23,7 @@ import com.example.hujihackaton47.adapters.MyItemAdapter;
 import com.example.hujihackaton47.adapters.ResultItemAdapter;
 import com.example.hujihackaton47.db.Database;
 import com.example.hujihackaton47.models.Item;
+import com.example.hujihackaton47.models.User;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
 
@@ -34,12 +35,17 @@ public class ProfileActivity extends AppCompatActivity {
     private Database db;
     private SharedPreferences sp;
     private MyItemAdapter adapter;
+    private User user;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile);
+
+        // get user
+        user = (User) getIntent().getSerializableExtra("user");
+
 
         // set logic components
         db = Database.getInstance();
@@ -60,9 +66,10 @@ public class ProfileActivity extends AppCompatActivity {
         addItemFab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Snackbar.make(view, "Clicked on Order Item Fab", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-                Intent intent = new Intent(ProfileActivity.this, OrderItemActivity.class);
+//                Snackbar.make(view, "Clicked on Order Item Fab", Snackbar.LENGTH_LONG)
+//                        .setAction("Action", null).show();
+                Intent intent = new Intent(ProfileActivity.this, AddItemActivity.class);
+                intent.putExtra("user", user);
                 startActivity(intent);
             }
         });
@@ -90,6 +97,7 @@ public class ProfileActivity extends AppCompatActivity {
         InputMethodManager inputMethodManager = (InputMethodManager) getSystemService(Activity.INPUT_METHOD_SERVICE);
         inputMethodManager.hideSoftInputFromWindow(view.getWindowToken(), 0);
     }
+
 
 
 }

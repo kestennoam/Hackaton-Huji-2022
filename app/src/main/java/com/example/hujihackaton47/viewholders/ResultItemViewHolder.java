@@ -11,7 +11,7 @@ import com.example.hujihackaton47.R;
 
 public class ResultItemViewHolder extends  RecyclerView.ViewHolder{
 
-    private final View rootView;
+    public final View rootView;
 
     // Views
     private TextView nameValueTextView;
