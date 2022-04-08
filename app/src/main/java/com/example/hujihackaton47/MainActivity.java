@@ -8,6 +8,7 @@ import android.os.Bundle;
 import com.example.hujihackaton47.adapters.ResultItemAdapter;
 import com.example.hujihackaton47.db.Database;
 import com.example.hujihackaton47.models.Item;
+import com.example.hujihackaton47.models.User;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
 
@@ -44,6 +45,7 @@ public class MainActivity extends AppCompatActivity {
     private AppBarConfiguration appBarConfiguration;
     private ActivityMainBinding binding;
     private ResultItemAdapter adapter;
+    private User user;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,6 +54,9 @@ public class MainActivity extends AppCompatActivity {
         // our code
         setContentView(R.layout.activity_main);
         db = Database.getInstance();
+
+        // create user
+        user = (User) getIntent().getSerializableExtra("user");
 
         // set ui components
         FloatingActionButton addItemFab = findViewById(R.id.fab_add_item);
@@ -64,7 +69,13 @@ public class MainActivity extends AppCompatActivity {
 
         // recycler view
         RecyclerView recyclerView = findViewById(R.id.item_recycler_view);
-        adapter = new ResultItemAdapter(null);
+        adapter = new ResultItemAdapter(item -> {
+            Log.d("Adapter,", item.toString() + "\n\n\n" + user.toString());
+            Intent intent = new Intent(MainActivity.this, OrderItemActivity.class);
+            intent.putExtra("user", user);
+            intent.putExtra("item", item);
+            startActivity(intent);
+        });
         recyclerView.setAdapter( adapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(this, RecyclerView.VERTICAL, false));
 
@@ -75,9 +86,10 @@ public class MainActivity extends AppCompatActivity {
         addItemFab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Snackbar.make(view, "Clicked on Add Item Fab", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
+//                Snackbar.make(view, "Clicked on Add Item Fab", Snackbar.LENGTH_LONG)
+//                        .setAction("Action", null).show();
                 Intent intent = new Intent(MainActivity.this, AddItemActivity.class);
+                intent.putExtra("user", user);
                 startActivity(intent);
             }
         });
@@ -89,6 +101,7 @@ public class MainActivity extends AppCompatActivity {
                 Snackbar.make(view, "Clicked on Order Item Fab", Snackbar.LENGTH_LONG)
                         .setAction("Action", null).show();
                 Intent intent = new Intent(MainActivity.this, OrderItemActivity.class);
+                intent.putExtra("user", user);
                 startActivity(intent);
             }
         });
@@ -98,6 +111,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(MainActivity.this, ProfileActivity.class);
+                intent.putExtra("user", user);
                 startActivity(intent);
             }
         });

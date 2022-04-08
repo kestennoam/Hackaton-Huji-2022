@@ -32,11 +32,16 @@ public class AddItemActivity extends AppCompatActivity {
     private MutableLiveData<Integer> paymentLiveData;
     Uri itemPictureUri;
     ImageButton itemImageButton;
+    private User user;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_item);
+
+        // create user
+        user = (User) getIntent().getSerializableExtra("user");
+
 
         // set logic components
         db = Database.getInstance();

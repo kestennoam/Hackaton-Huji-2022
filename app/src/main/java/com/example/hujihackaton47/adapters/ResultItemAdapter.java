@@ -41,6 +41,10 @@ public class ResultItemAdapter extends RecyclerView.Adapter<ResultItemViewHolder
     @Override
     public void onBindViewHolder(@NonNull ResultItemViewHolder holder, int position) {
         Item item = items.get(position);
+
+        holder.rootView.setOnClickListener(v -> listener.onButtonClicked(item));
+
+
         Log.d("ResultItemAdapter", "item: " + item);
         holder.getNameValueTextView().setText(item.getName());
         holder.getOwnerValueTextView().setText("Noam Kesten");

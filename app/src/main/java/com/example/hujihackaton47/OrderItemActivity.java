@@ -39,9 +39,12 @@ public class OrderItemActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_order_item);
+        user = (User) getIntent().getSerializableExtra("user");
+        item = (Item) getIntent().getSerializableExtra("item");
+        Log.d("useranditems", user.toString() + "\n\n" + item.toString());
 
-        user = new User("Noam", "Kesten", "123", "email@gmail.com",
-                "050", "loc", "image");
+//        user = new User("Noam", "Kesten", "123", "email@gmail.com",
+//                "050", "loc", "image");
         TextView userName = findViewById(R.id.user_name);
         String userFullName = user.getFirstName()+ " " +user.getLastName();
         userName.setText(userFullName);
@@ -50,8 +53,8 @@ public class OrderItemActivity extends AppCompatActivity {
         tempTags.add("Drill");
         tempTags.add("Camera");
         tempTags.add("Vaccume");
-        item = new Item("Makita DHP484Z Drill",
-                "@drawable/ic_launcher_background", 10, tempTags, "Somethin Great!", "123");
+//        item = new Item("Makita DHP484Z Drill",
+//                "@drawable/ic_launcher_background", 10, tempTags, "Somethin Great!", "123");
         item.setTags(tempTags);
         TextView name = findViewById(R.id.name);
         ImageView image = findViewById(R.id.image);

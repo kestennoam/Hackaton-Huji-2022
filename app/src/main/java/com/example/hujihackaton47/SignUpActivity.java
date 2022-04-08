@@ -128,6 +128,7 @@ public class SignUpActivity extends AppCompatActivity {
                 db.addUser(user);
                 sp.edit().putString("userId", user.getId());
                 Intent mainActivityIntent = new Intent(this, MainActivity.class);
+                mainActivityIntent.putExtra("user", user);
                 startActivity(mainActivityIntent);
             }
         });
