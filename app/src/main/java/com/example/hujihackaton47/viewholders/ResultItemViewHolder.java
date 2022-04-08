@@ -24,9 +24,9 @@ public class ResultItemViewHolder extends  RecyclerView.ViewHolder{
         rootView = itemView;
 
         nameValueTextView = (TextView) rootView.findViewById(R.id.item_name_value);
-        ownerValueTextView = (TextView) rootView.findViewById(R.id.item_owner_value);
+//        ownerValueTextView = (TextView) rootView.findViewById(R.id.item_owner_value);
         priceValueTextView = (TextView) rootView.findViewById(R.id.item_price_value);
-        descriptionValueTextView = (TextView) rootView.findViewById(R.id.item__description_value);
+//        descriptionValueTextView = (TextView) rootView.findViewById(R.id.item__description_value);
 
     }
 
@@ -34,15 +34,15 @@ public class ResultItemViewHolder extends  RecyclerView.ViewHolder{
         return nameValueTextView;
     }
 
-    public TextView getOwnerValueTextView() {
-        return ownerValueTextView;
-    }
+//    public TextView getOwnerValueTextView() {
+//        return ownerValueTextView;
+//    }
 
     public TextView getPriceValueTextView() {
         return priceValueTextView;
     }
 
-    public TextView getDescriptionValueTextView() {
-        return descriptionValueTextView;
-    }
+//    public TextView getDescriptionValueTextView() {
+//        return descriptionValueTextView;
+//    }
 }
