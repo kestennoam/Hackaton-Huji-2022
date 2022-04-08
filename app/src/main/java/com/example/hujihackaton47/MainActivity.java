@@ -31,6 +31,7 @@ import com.example.hujihackaton47.databinding.ActivityMainBinding;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.inputmethod.InputMethodManager;
+import android.widget.ImageButton;
 import android.widget.SearchView;
 
 import java.util.List;
@@ -55,7 +56,7 @@ public class MainActivity extends AppCompatActivity {
         // set ui components
         FloatingActionButton addItemFab = findViewById(R.id.fab_add_item);
         FloatingActionButton orderItemFab = findViewById(R.id.fab_order_item);
-        CardView profileIconCardView = (CardView) findViewById(R.id.profile_icon);
+        ImageButton profileIconImageButton = (ImageButton) findViewById(R.id.profile_icon);
         SearchView searchView = (SearchView) findViewById(R.id.simpleSearchView); // inititate a search view
         searchView.setIconified(false);
         searchView.setQueryHint("search product...");
@@ -93,7 +94,7 @@ public class MainActivity extends AppCompatActivity {
         });
 
         // profile
-        profileIconCardView.setOnClickListener(new View.OnClickListener() {
+        profileIconImageButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(MainActivity.this, ProfileActivity.class);
