@@ -21,10 +21,10 @@
         />
 
     <Button
-        android:id="@+id/AddItemImage"
+        android:id="@+id/AddItemImageButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Add Images"
+        android:text="Add Image"
         android:layout_marginTop="80dp"
         app:layout_constraintTop_toBottomOf="@+id/AddItemTitle"
         app:layout_constraintStart_toStartOf="parent"
@@ -36,9 +36,8 @@
         android:layout_height="wrap_content"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/AddItemImage"
+        app:layout_constraintTop_toBottomOf="@+id/AddItemImageButton"
         android:layout_marginTop="50dp"
-        android:gravity="center"
         android:layout_marginStart="50dp"
         android:layout_marginEnd="50dp"
         android:hint="Item Name" />
@@ -46,13 +45,13 @@
     <EditText
         android:id="@+id/AddItemDescription"
         android:layout_width="316dp"
-        android:layout_height="135dp"
+        android:layout_height="101dp"
         android:layout_marginStart="50dp"
-        android:layout_marginTop="5dp"
+        android:layout_marginTop="30dp"
         android:layout_marginEnd="50dp"
         android:autofillHints="Description"
-        android:gravity="top"
         android:ems="10"
+        android:gravity="top"
         android:hint="Description"
         android:inputType="textMultiLine"
         app:layout_constraintEnd_toEndOf="parent"
@@ -60,28 +59,44 @@
         app:layout_constraintTop_toBottomOf="@+id/AddItemName" />
 
 
-    <TextView
-        android:id="@+id/AddItemPriceText"
+    <Button
+        android:id="@+id/AddItemButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
-        android:text="Price Per Day:"
-        app:layout_constraintTop_toBottomOf="@+id/AddItemDescription"
+        android:text="Upload"
+        android:layout_marginTop="80dp"
+        app:layout_constraintTop_toBottomOf="@+id/priceSlider"
         app:layout_constraintStart_toStartOf="parent"
-        android:layout_marginStart="50dp"
+        app:layout_constraintEnd_toEndOf="parent"/>
+
+    <TextView
+        android:id="@+id/PriceTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="40dp"
+        android:layout_weight="1"
+        android:text="@string/price_title"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/AddItemDescription"
+        android:textSize="18sp"
         />
 
-    <EditText
-        android:id="@+id/AddItemPrice"
-        android:layout_width="wrap_content"
+    <com.google.android.material.slider.Slider
+        android:id="@+id/priceSlider"
+        android:layout_width="200dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
-        app:layout_constraintTop_toBottomOf="@+id/AddItemDescription"
-        app:layout_constraintStart_toStartOf="@+id/AddItemPriceText"
+        android:layout_gravity="center"
+        android:layout_marginTop="84dp"
+        android:layout_weight="1"
+        android:stepSize="5"
+        android:value="50.0"
+        android:valueFrom="0.0"
+        android:valueTo="150.0"
         app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginStart="50dp"
-        android:ems="10"
-        android:inputType="numberDecimal"
-        />
+        app:layout_constraintHorizontal_bias="0.497"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/AddItemDescription" />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>
