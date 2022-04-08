@@ -23,6 +23,7 @@ import androidx.lifecycle.LiveData;
 import com.example.hujihackaton47.db.Database;
 import com.example.hujihackaton47.models.Item;
 import com.example.hujihackaton47.models.User;
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -32,7 +33,7 @@ public class OrderItemActivity extends AppCompatActivity {
     private SharedPreferences sp;
     private Item item;
     private User user;
-
+    Uri itemPictureUri;
 
 
     @Override
@@ -46,7 +47,7 @@ public class OrderItemActivity extends AppCompatActivity {
 //        user = new User("Noam", "Kesten", "123", "email@gmail.com",
 //                "050", "loc", "image");
         TextView userName = findViewById(R.id.user_name);
-        String userFullName = user.getFirstName()+ " " +user.getLastName();
+        String userFullName = user.getFirstName() + " " + user.getLastName();
         userName.setText(userFullName);
 
         ArrayList<String> tempTags = new ArrayList<String>();
@@ -66,11 +67,14 @@ public class OrderItemActivity extends AppCompatActivity {
         String dollarPrice = "$" + String.valueOf(item.getPrice());
         price.setText(dollarPrice);
 
+//        itemPictureUri = Uri.parse(item.getImage().toString());
+//        Picasso.get().load(itemPictureUri).into(image);
+
+//        image.setImageURI(Uri.parse(item.getImage()));
 
         // set logic components
         db = Database.getInstance();
         sp = PreferenceManager.getDefaultSharedPreferences(this);
-
 
 
     }
