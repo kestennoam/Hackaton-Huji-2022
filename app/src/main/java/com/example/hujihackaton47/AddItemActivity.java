@@ -52,8 +52,6 @@ public class AddItemActivity extends AppCompatActivity {
         paymentLiveData = new MutableLiveData<>(10);
         EditText ItemName = findViewById(R.id.AddItemName);
         EditText ItemDescription = findViewById(R.id.AddItemDescription);
-//        EditText ItemPrice = findViewById(R.id.AddItemPrice);
-//        View ItemImage = findViewById(R.id.AddItemImageButton);
         Button addItemButton = findViewById(R.id.AddItemButton);
         TextView titleTextView = findViewById(R.id.PriceTitle);
         itemImageButton = findViewById(R.id.AddItemImageButton);
@@ -65,24 +63,6 @@ public class AddItemActivity extends AppCompatActivity {
             titleTextView.setText(getString(R.string.price_title) + " - " + (int) value + "$");
         });
 
-        // Buttons etc.
-//        ActivityResultLauncher<String> stringActivityResultLauncher = registerForActivityResult(new ActivityResultContracts.GetContent(), new ActivityResultCallback<Uri>() {
-//
-//            @Override
-//            public void onActivityResult(Uri result) {
-//                itemPictureUri = Uri.parse(result.toString());
-//                Picasso.get().load(itemPictureUri).into(itemImageButton);
-//            }
-//        });
-
-
-//        ItemImage.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                stringActivityResultLauncher.launch("image/*");
-//            }
-//        });
-
         // profile picture button listener
         itemImageButton.setOnClickListener(v -> {
             Intent intent = new Intent();
@@ -91,8 +71,9 @@ public class AddItemActivity extends AppCompatActivity {
             startActivityForResult(Intent.createChooser(intent, "Select Picture"), 100); //activity result method call
         });
 
+
         addItemButton.setOnClickListener(v -> {
-            db.addItem(new Item(ItemName.getText().toString(), "ItemImage", paymentLiveData.getValue(), null, ItemDescription.getText().toString(), "5"));
+            db.addItem(new Item(ItemName.getText().toString(), itemPictureUri.toString(), paymentLiveData.getValue(), null, ItemDescription.getText().toString(), "5"));
             finish();
 
         });
