@@ -63,7 +63,8 @@ public class ProfileActivity extends AppCompatActivity {
         // recycler view
         RecyclerView recyclerView = findViewById(R.id.item_recycler_view);
         adapter = new MyItemAdapter(null);
-        getAdapter("7" /* todo [noamkesten] change hardcoded*/);
+        Log.d("IDD", user.getId());
+        getAdapter(user.getId() /* todo [noamkesten] change hardcoded*/);
         recyclerView.setAdapter(adapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(this, RecyclerView.HORIZONTAL, false));
 
