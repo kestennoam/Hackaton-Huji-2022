@@ -1,6 +1,8 @@
 package com.example.hujihackaton47;
 
+import android.app.Activity;
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 
 import com.example.hujihackaton47.adapters.ResultItemAdapter;
@@ -9,6 +11,7 @@ import com.example.hujihackaton47.models.Item;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
 
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.util.Log;
@@ -27,6 +30,8 @@ import com.example.hujihackaton47.databinding.ActivityMainBinding;
 
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.inputmethod.InputMethodManager;
+import android.widget.ImageButton;
 import android.widget.SearchView;
 
 import java.util.List;
@@ -51,14 +56,18 @@ public class MainActivity extends AppCompatActivity {
         // set ui components
         FloatingActionButton addItemFab = findViewById(R.id.fab_add_item);
         FloatingActionButton orderItemFab = findViewById(R.id.fab_order_item);
-        FloatingActionButton addMockItem = findViewById(R.id.fab_add_mock_item);
-        CardView profileIconCardView = (CardView) findViewById(R.id.profile_icon);
-        SearchView simpleSearchView = (SearchView) findViewById(R.id.simpleSearchView); // inititate a search view
+        ImageButton profileIconImageButton = (ImageButton) findViewById(R.id.profile_icon);
+        SearchView searchView = (SearchView) findViewById(R.id.simpleSearchView); // inititate a search view
+        searchView.setIconified(false);
+        searchView.setQueryHint("search product...");
+
 
         // recycler view
         RecyclerView recyclerView = findViewById(R.id.item_recycler_view);
         adapter = new ResultItemAdapter(null);
         recyclerView.setAdapter( adapter);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this, RecyclerView.VERTICAL, false));
+
 
 
 
@@ -85,7 +94,7 @@ public class MainActivity extends AppCompatActivity {
         });
 
         // profile
-        profileIconCardView.setOnClickListener(new View.OnClickListener() {
+        profileIconImageButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(MainActivity.this, ProfileActivity.class);
@@ -93,20 +102,9 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        // add mock item
-        addMockItem.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Clicked on Order Item Fab", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-                db.addItem(new Item("go pro", "", 10, null, "this go pro was bought in 2018, it's go pro 5", "5"));
-                Intent intent = new Intent(MainActivity.this, SignUpActivity.class);
-                startActivity(intent);
-            }
-        });
 
         // perform set on query text listener event
-        simpleSearchView.setOnQueryTextListener(
+        searchView.setOnQueryTextListener(
                 new SearchView.OnQueryTextListener() {
                     @Override
                     public boolean onQueryTextSubmit(String query) {
@@ -175,5 +173,11 @@ public class MainActivity extends AppCompatActivity {
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_content_main);
         return NavigationUI.navigateUp(navController, appBarConfiguration)
                 || super.onSupportNavigateUp();
+    }
+
+    @RequiresApi(api = Build.VERSION_CODES.M)
+    public void hideKeyboard(View view) {
+        InputMethodManager inputMethodManager = (InputMethodManager) getSystemService(Activity.INPUT_METHOD_SERVICE);
+        inputMethodManager.hideSoftInputFromWindow(view.getWindowToken(), 0);
     }
 }

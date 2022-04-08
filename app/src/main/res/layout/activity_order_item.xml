@@ -1,20 +1,157 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@color/white">
 
-    <TextView
-        android:id="@+id/tv_logo"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="25dp"
-        android:layout_marginTop="60dp"
-        android:layout_marginBottom="5dp"
-        android:text="Order Item"
-        android:textAlignment="center"
-        android:textSize="50sp"
-        tools:ignore="MissingConstraints" />
+    <LinearLayout
+        android:layout_width="357dp"
+        android:layout_height="642dp"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.179">
+
+        <ImageView
+            android:id="@+id/image"
+            android:layout_width="375dp"
+            android:layout_height="269dp"
+            app:srcCompat="@drawable/drill"
+            android:layout_gravity="center"/>
+
+        <TextView
+            android:id="@+id/name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="20sp"
+            android:textColor="#1A1E25"
+            android:textStyle="bold"
+            />
+
+        <TextView
+            android:id="@+id/description"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="left"
+            android:textAlignment="gravity"
+            android:textSize="16sp"
+            android:textColor="#CCCCCC"
+            />
+
+        <LinearLayout
+            android:id="@+id/linear_price"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_gravity="left"
+            >
+            <TextView
+                android:id="@+id/price"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="18sp"
+                android:textColor="#1A1E25"
+                />
+
+            <TextView
+                android:id="@+id/item_pricetitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text=" / day"
+                android:textSize="18sp"
+                android:textColor="#CCCCCC"
+                />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/linear_user"
+            android:layout_width="match_parent"
+            android:layout_height="42dp"
+            android:orientation="horizontal"
+            android:layout_gravity="left"
+            >
+
+            <ImageView
+                android:id="@+id/user_image"
+                android:layout_width="72dp"
+                android:layout_height="42dp"
+                app:srcCompat="@drawable/noam" />
+
+            <TextView
+                android:id="@+id/user_name"
+                android:layout_width="172dp"
+                android:layout_height="42dp"
+                android:textColor="#1A1E25"
+                android:textSize="16sp" />
+
+            <ImageView
+                android:id="@+id/call_image"
+                android:layout_width="wrap_content"
+                android:layout_height="42dp"
+                app:srcCompat="@drawable/call" />
+
+            <ImageView
+                android:id="@+id/chat_image"
+                android:layout_width="66dp"
+                android:layout_height="42dp"
+                app:srcCompat="@drawable/whatsapp" />
+
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/linear_rate"
+            android:layout_width="match_parent"
+            android:layout_height="42dp"
+            android:orientation="horizontal"
+            android:layout_gravity="left"
+            >
+
+
+            <ImageView
+                android:id="@+id/star_image"
+                android:layout_width="wrap_content"
+                android:layout_height="42dp"
+                app:srcCompat="@drawable/ic_baseline_star_24" />
+
+            <TextView
+                android:id="@+id/user_rate"
+                android:layout_width="wrap_content"
+                android:layout_height="42dp"
+                android:text="4.5"
+                android:textColor="#1A1E25"
+                android:textSize="16sp"
+                android:gravity="center_vertical"/>
+            <TextView
+                android:id="@+id/item_price_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text=" (48)"
+                android:textSize="18sp"
+                android:textColor="#CCCCCC"
+                />
+
+
+        </LinearLayout>
+
+
+        <ImageView
+            android:id="@+id/map_image"
+            android:layout_width="343dp"
+            android:layout_height="209dp"
+            app:srcCompat="@drawable/map" />
+
+
+
+
+
+
+    </LinearLayout>
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
