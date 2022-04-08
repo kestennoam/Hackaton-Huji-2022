@@ -2,6 +2,7 @@ package com.example.hujihackaton47;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 
@@ -72,7 +73,7 @@ public class MainActivity extends AppCompatActivity {
         adapter = new ResultItemAdapter(item -> {
             Log.d("Adapter,", item.toString() + "\n\n\n" + user.toString());
             Intent intent = new Intent(MainActivity.this, OrderItemActivity.class);
-            intent.setAction(Intent.ACTION_GET_CONTENT);
+
             intent.putExtra("user", user);
             intent.putExtra("item", item);
             startActivity(intent);

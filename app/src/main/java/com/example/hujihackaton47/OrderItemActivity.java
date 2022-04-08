@@ -70,7 +70,7 @@ public class OrderItemActivity extends AppCompatActivity {
 //        itemPictureUri = Uri.parse(item.getImage().toString());
 //        Picasso.get().load(itemPictureUri).into(image);
 
-//        image.setImageURI(Uri.parse(item.getImage()));
+//        image.setImageURI(getIntent().getData());
 
         // set logic components
         db = Database.getInstance();
