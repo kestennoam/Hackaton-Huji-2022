@@ -22,6 +22,7 @@ import androidx.lifecycle.LiveData;
 
 import com.example.hujihackaton47.db.Database;
 import com.example.hujihackaton47.models.Item;
+import com.example.hujihackaton47.models.User;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -30,6 +31,7 @@ public class OrderItemActivity extends AppCompatActivity {
     private Database db;
     private SharedPreferences sp;
     private Item item;
+    private User user;
 
 
 
@@ -38,29 +40,28 @@ public class OrderItemActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_order_item);
 
+        user = new User("Noam", "Kesten", "123", "email@gmail.com",
+                "050", "loc", "image");
+        TextView userName = findViewById(R.id.user_name);
+        String userFullName = user.getFirstName()+ " " +user.getLastName();
+        userName.setText(userFullName);
+
         ArrayList<String> tempTags = new ArrayList<String>();
         tempTags.add("Drill");
         tempTags.add("Camera");
         tempTags.add("Vaccume");
-        item = new Item("Product", "@drawable/ic_launcher_background", 10, tempTags, "Somethin Great!");
+        item = new Item("Makita DHP484Z Drill",
+                "@drawable/ic_launcher_background", 10, tempTags, "Somethin Great!", "123");
         item.setTags(tempTags);
         TextView name = findViewById(R.id.name);
-        TextView tags = findViewById(R.id.tags);
         ImageView image = findViewById(R.id.image);
         TextView price = findViewById(R.id.price);
         TextView description = findViewById(R.id.description);
-        String tagsString = "";
-        if (item.getTags() != null)
-        {
-            for (String tag : item.getTags()) {
-                tagsString += "#" + tag+" ";
-            }
-        }
 //        image.setImageURI(Uri.parse(item.getImage()));
         name.setText(item.getName());
-        tags.setText(tagsString);
         description.setText(item.getDescription());
-        price.setText(String.valueOf(item.getPrice()));
+        String dollarPrice = "$" + String.valueOf(item.getPrice());
+        price.setText(dollarPrice);
 
 
         // set logic components
