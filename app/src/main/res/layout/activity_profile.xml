@@ -11,7 +11,7 @@
         android:id="@+id/llmain2"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="100dp"
+        android:layout_marginBottom="20dp"
 
         android:orientation="horizontal">
 
@@ -84,63 +84,31 @@
 
     </LinearLayout>
 
-
-
-
-
-    <LinearLayout
-        android:id="@+id/user_phone"
+    <EditText
+        android:id="@+id/phone_number"
         android:layout_width="match_parent"
-        android:layout_height="42dp"
-        android:orientation="horizontal"
-        android:layout_gravity="left"
-        >
+        android:layout_height="50dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:layout_marginBottom="10dp"
+        android:background="@drawable/et_custom"
+        android:hint="0545668231"
+        android:inputType="textPersonName"
+        android:padding="15dp"
+        android:textSize="15sp" />
 
-
-        <ImageView
-            android:id="@+id/call_image"
-            android:layout_width="wrap_content"
-            android:layout_height="42dp"
-            android:layout_marginLeft="20dp"
-            app:srcCompat="@drawable/call" />
-
-        <TextView
-            android:id="@+id/phone_number"
-            android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:layout_marginLeft="20dp"
-            android:layout_marginRight="20dp"
-            android:layout_marginBottom="10dp"
-            android:text="0545668231"
-            android:padding="15dp"
-            android:textSize="15sp" />
-
-
-    </LinearLayout>
-
-    <LinearLayout
-        android:id="@+id/linear_user"
+    <EditText
+        android:id="@+id/location"
         android:layout_width="match_parent"
-        android:layout_height="42dp"
-        android:orientation="horizontal"
-        android:layout_gravity="left"
-        >
-
-
-
-        <TextView
-            android:id="@+id/location"
-            android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:layout_marginLeft="70dp"
-            android:layout_marginRight="20dp"
-            android:layout_marginBottom="20dp"
-            android:text="690 Gregory Rd.Massapequa, NY 11758"
-            android:padding="15dp"
-            android:textSize="15sp" />
-
-
-    </LinearLayout>
+        android:layout_height="50dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:layout_marginBottom="20dp"
+        android:background="@drawable/et_custom"
+        android:hint="690 Gregory Rd.Massapequa, NY 11758"
+        android:inputType="textPersonName"
+        android:padding="15dp"
+        android:textSize="15sp" />
 
     <TextView
         android:id="@+id/products_title_text_view"
@@ -151,13 +119,11 @@
         android:layout_marginBottom="5dp"
         android:text="My Products " />
 
-
-
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/item_recycler_view"
         android:layout_marginLeft="20dp"
         android:layout_width="match_parent"
-        android:layout_height="200dp"
+        android:layout_height="250dp"
         android:text="item" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
@@ -171,3 +137,4 @@
 
 
 </LinearLayout>
+
