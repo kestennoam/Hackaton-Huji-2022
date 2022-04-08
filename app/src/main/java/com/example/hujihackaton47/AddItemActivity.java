@@ -14,9 +14,6 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
-import androidx.activity.result.ActivityResultCallback;
-import androidx.activity.result.ActivityResultLauncher;
-import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.MutableLiveData;
@@ -62,6 +59,26 @@ public class AddItemActivity extends AppCompatActivity {
             paymentLiveData.setValue((int) value);
             titleTextView.setText(getString(R.string.price_title) + " - " + (int) value + "$");
         });
+
+        titleTextView.setText(getString(R.string.price_title) + " 10$");
+
+        // Buttons etc.
+//        ActivityResultLauncher<String> stringActivityResultLauncher = registerForActivityResult(new ActivityResultContracts.GetContent(), new ActivityResultCallback<Uri>() {
+//
+//            @Override
+//            public void onActivityResult(Uri result) {
+//                itemPictureUri = Uri.parse(result.toString());
+//                Picasso.get().load(itemPictureUri).into(itemImageButton);
+//            }
+//        });
+
+
+//        ItemImage.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                stringActivityResultLauncher.launch("image/*");
+//            }
+//        });
 
         // profile picture button listener
         itemImageButton.setOnClickListener(v -> {

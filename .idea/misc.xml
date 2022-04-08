@@ -3,17 +3,11 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
-        <entry key="..\:/Users/timna/Desktop/Hack/Hackaton-Huji-2022/app/src/main/res/drawable/btn_custom.xml" value="0.165" />
-        <entry key="..\:/Users/timna/Desktop/Hack/Hackaton-Huji-2022/app/src/main/res/layout/activity_add_item.xml" value="0.2" />
-        <entry key="..\:/Users/timna/Desktop/Hack/Hackaton-Huji-2022/app/src/main/res/layout/activity_main.xml" value="0.1" />
-        <entry key="..\:/Users/timna/Desktop/Hack/Hackaton-Huji-2022/app/src/main/res/layout/activity_order_item.xml" value="0.20208333333333334" />
-        <entry key="..\:/Users/timna/Desktop/Hack/Hackaton-Huji-2022/app/src/main/res/layout/content_main.xml" value="0.1" />
         <entry key="app/src/main/res/layout/activity_add_button.xml" value="0.4036458333333333" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.23020833333333332" />
         <entry key="app/src/main/res/layout/activity_order_item.xml" value="0.4036458333333333" />
         <entry key="app/src/main/res/layout/content_main.xml" value="0.23020833333333332" />
         <entry key="app/src/main/res/layout/fragment_first.xml" value="0.23020833333333332" />
-        <entry key="app/src/main/res/layout/item_result_item.xml" value="0.23020833333333332" />
       </map>
     </option>
   </component>
