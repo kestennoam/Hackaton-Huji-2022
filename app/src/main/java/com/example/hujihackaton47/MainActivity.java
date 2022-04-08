@@ -72,6 +72,7 @@ public class MainActivity extends AppCompatActivity {
         adapter = new ResultItemAdapter(item -> {
             Log.d("Adapter,", item.toString() + "\n\n\n" + user.toString());
             Intent intent = new Intent(MainActivity.this, OrderItemActivity.class);
+            intent.setAction(Intent.ACTION_GET_CONTENT);
             intent.putExtra("user", user);
             intent.putExtra("item", item);
             startActivity(intent);
