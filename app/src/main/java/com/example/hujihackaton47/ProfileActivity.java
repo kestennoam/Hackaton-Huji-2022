@@ -10,7 +10,9 @@ import android.preference.PreferenceManager;
 import android.util.Log;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
+import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.TextView;
 
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
@@ -53,6 +55,9 @@ public class ProfileActivity extends AppCompatActivity {
 
         // set ui components
         FloatingActionButton addItemFab = findViewById(R.id.fab_add_item);
+        TextView fullNameTextView = (TextView) findViewById(R.id.full_name);
+        EditText phoneNumber = (EditText) findViewById(R.id.phone_number);
+
 
 
         // recycler view
@@ -61,6 +66,10 @@ public class ProfileActivity extends AppCompatActivity {
         getAdapter("7" /* todo [noamkesten] change hardcoded*/);
         recyclerView.setAdapter(adapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(this, RecyclerView.HORIZONTAL, false));
+
+        // set full name
+        fullNameTextView.setText(user.getFirstName() + " " + user.getLastName());
+        phoneNumber.setText(String.valueOf(user.getPhoneNumber()));
 
         // order item click
         addItemFab.setOnClickListener(new View.OnClickListener() {
