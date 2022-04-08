@@ -90,7 +90,7 @@ public class AddItemActivity extends AppCompatActivity {
 
 
         addItemButton.setOnClickListener(v -> {
-            db.addItem(new Item(ItemName.getText().toString(), itemPictureUri.toString(), paymentLiveData.getValue(), null, ItemDescription.getText().toString(), "5"));
+            db.addItem(new Item(ItemName.getText().toString(), itemPictureUri.toString(), paymentLiveData.getValue(), null, ItemDescription.getText().toString(), user.getId()));
             finish();
 
         });

@@ -56,7 +56,7 @@ public class ProfileActivity extends AppCompatActivity {
         // set ui components
         FloatingActionButton addItemFab = findViewById(R.id.fab_add_item);
         TextView fullNameTextView = (TextView) findViewById(R.id.full_name);
-        EditText phoneNumber = (EditText) findViewById(R.id.phone_number);
+        TextView phoneNumber = (TextView) findViewById(R.id.phone_number);
 
 
 
