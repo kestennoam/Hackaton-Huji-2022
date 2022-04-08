@@ -28,7 +28,6 @@ public class SignUpActivity extends AppCompatActivity {
 
     Database db;
     SharedPreferences sp;
-    ImageButton backButton;
 
     private String firstName = "", lastName = "", mail = "", pass = "", rePass = "";
     public static final Pattern VALID_EMAIL_ADDRESS_REGEX =
@@ -64,7 +63,6 @@ public class SignUpActivity extends AppCompatActivity {
         EditText retypePassword = findViewById(R.id.et_repassword);
         Button registerButton = findViewById(R.id.btn_register);
         CardView profileIconCardView = findViewById(R.id.profile_icon);
-        backButton = findViewById(R.id.btn_back);
 
         // todo [noamkesten] profileIcon on click
 
@@ -134,8 +132,6 @@ public class SignUpActivity extends AppCompatActivity {
         });
 
 
-        backButton.setOnClickListener(v -> finish());
-//        }
     }
 
     @Override
