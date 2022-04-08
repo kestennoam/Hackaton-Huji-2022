@@ -1,9 +1,12 @@
 package com.example.hujihackaton47;
 
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.MotionEvent;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
@@ -12,6 +15,7 @@ import android.widget.ImageButton;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
+import androidx.preference.PreferenceManager;
 
 import com.example.hujihackaton47.db.Database;
 import com.example.hujihackaton47.models.User;
@@ -23,7 +27,7 @@ import java.util.regex.Pattern;
 public class SignUpActivity extends AppCompatActivity {
 
     Database db;
-
+    SharedPreferences sp;
     ImageButton backButton;
 
     private String firstName = "", lastName = "", mail = "", pass = "", rePass = "";
@@ -35,12 +39,22 @@ public class SignUpActivity extends AppCompatActivity {
         return matcher.find();
     }
 
+    @SuppressLint("CommitPrefEdits")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sign_up);
 
         db = Database.getInstance();
+        sp = PreferenceManager.getDefaultSharedPreferences(getApplication());
+//        if (!sp.getString("userId", "").equals("")){
+//            Log.d("SignUpActivity", "userid is not null");
+//            Intent mainActivityIntent = new Intent(this, MainActivity.class);
+//            startActivity(mainActivityIntent);
+//        }
+//        else{
+//            Log.d("SignUpActivity", "userid is ull");
+
 
         // set ui components
         EditText fullName = findViewById(R.id.et_name);
@@ -110,15 +124,17 @@ public class SignUpActivity extends AppCompatActivity {
 //                loginIntent.putExtra("password", pass);
 
                 // todo [noamkesten] add user
-
-                db.addUser(new User(firstName, lastName, password.getText().toString(), email.getText().toString(), phoneNumber.getText().toString(), "empty", "image"));
-//                Intent mainActivityIntent = new Intent();
-//                startActivity(mainActivityIntent);
+                User user = new User(firstName, lastName, password.getText().toString(), email.getText().toString(), phoneNumber.getText().toString(), "empty", "image");
+                db.addUser(user);
+                sp.edit().putString("userId", user.getId());
+                Intent mainActivityIntent = new Intent(this, MainActivity.class);
+                startActivity(mainActivityIntent);
             }
         });
 
 
         backButton.setOnClickListener(v -> finish());
+//        }
     }
 
     @Override

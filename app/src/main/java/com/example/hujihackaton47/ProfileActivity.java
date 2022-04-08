@@ -15,13 +15,23 @@ import android.widget.ImageButton;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.LiveData;
+import androidx.lifecycle.Transformations;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.hujihackaton47.adapters.MyItemAdapter;
+import com.example.hujihackaton47.adapters.ResultItemAdapter;
 import com.example.hujihackaton47.db.Database;
+import com.example.hujihackaton47.models.Item;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.stream.Collectors;
 
 public class ProfileActivity extends AppCompatActivity {
     private Database db;
     private SharedPreferences sp;
-
+    private MyItemAdapter adapter;
 
 
     @Override
@@ -33,7 +43,32 @@ public class ProfileActivity extends AppCompatActivity {
         db = Database.getInstance();
         sp = PreferenceManager.getDefaultSharedPreferences(this);
 
+        // set ui components
 
+        // recycler view
+        RecyclerView recyclerView = findViewById(R.id.item_recycler_view);
+        adapter = new MyItemAdapter(null);
+        getAdapter("7" /* todo [noamkesten] change hardcoded*/);
+        recyclerView.setAdapter(adapter);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this, RecyclerView.HORIZONTAL, false));
+
+
+    }
+
+    private RecyclerView.Adapter getAdapter(String ownerId) {
+
+        LiveData<List<Item>> itemsLiveData = db.getLiveDataItemsByUserID(ownerId);
+
+        itemsLiveData.observeForever(items -> {
+            if (items == null){
+                Log.e("ProfileActivity", "items are null");
+            }
+            Log.d("ProfileActivity", "tems:" + items);
+            adapter.setItems(items);
+        });
+
+
+        return adapter;
     }
 
     @RequiresApi(api = Build.VERSION_CODES.M)

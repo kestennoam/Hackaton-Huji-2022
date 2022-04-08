@@ -23,7 +23,13 @@
         <activity
             android:name="SignUpActivity"
             android:label="SignUpActivity"
-            tools:ignore="Instantiatable" />
+            tools:ignore="Instantiatable">
+<!--        <intent-filter>-->
+<!--            <action android:name="android.intent.action.MAIN" />-->
+
+<!--            <category android:name="android.intent.category.LAUNCHER" />-->
+<!--        </intent-filter>-->
+        </activity>
 
         <activity
             android:name="AddItemActivity"

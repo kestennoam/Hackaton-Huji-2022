@@ -25,6 +25,7 @@ public class Database implements IDataBase{
     private Map<String, Item> items = new HashMap<>();
     private Map<String, User> users = new HashMap<>();
     private MutableLiveData<List<Item>> itemsMutableLiveData = new MutableLiveData<>();
+    private MutableLiveData<List<Item>> myItemsMutableLiveData = new MutableLiveData<>();
     private FirebaseFirestore firestore;
 
 
@@ -95,6 +96,17 @@ public class Database implements IDataBase{
         querySnapshotTask.addOnFailureListener(null /* TODO complete[noamkesten]*/);
 
         return itemsMutableLiveData;
+    }
+
+    public LiveData<List<Item>> getLiveDataItemsByUserID(String ownerId) {
+
+        Task<QuerySnapshot> querySnapshotTask = firestore.collection("items").whereEqualTo("ownerId", ownerId).get();
+        querySnapshotTask.addOnSuccessListener(items -> {
+            myItemsMutableLiveData.setValue(items.toObjects(Item.class));
+        });
+        querySnapshotTask.addOnFailureListener(null /* TODO complete[noamkesten]*/);
+
+        return myItemsMutableLiveData;
     }
     
     // Users

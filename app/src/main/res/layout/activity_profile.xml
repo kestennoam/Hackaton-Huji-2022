@@ -8,9 +8,11 @@
 
 
     <LinearLayout
-        android:id="@+id/llmain"
+        android:id="@+id/llmain2"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="100dp"
+
         android:orientation="horizontal">
 
         <androidx.cardview.widget.CardView
@@ -58,12 +60,13 @@
                 android:id="@+id/llrank"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginLeft="20dp"
                 android:orientation="horizontal">
 
                 <ImageButton
                     android:id="@+id/favorite"
                     android:layout_width="wrap_content"
-                    android:layout_height="fill_parent"
+                    android:layout_height="wrap_content"
                     android:background="#00ffffff"
                     android:src="@drawable/ic_baseline_star_24" />
 
@@ -75,8 +78,9 @@
                     android:text="4.8 (73)"
                     android:textSize="17sp" />
             </LinearLayout>
-        </LinearLayout>
 
+
+        </LinearLayout>
 
     </LinearLayout>
 
@@ -99,12 +103,29 @@
         android:layout_height="50dp"
         android:layout_marginLeft="20dp"
         android:layout_marginRight="20dp"
-        android:layout_marginBottom="10dp"
+        android:layout_marginBottom="20dp"
         android:background="@drawable/et_custom"
         android:hint="690 Gregory Rd.Massapequa, NY 11758"
         android:inputType="textPersonName"
         android:padding="15dp"
         android:textSize="15sp" />
+
+    <TextView
+        android:id="@+id/products_title_text_view"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="20dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="5dp"
+        android:text="My Products " />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/item_recycler_view"
+        android:layout_marginLeft="20dp"
+        android:layout_width="match_parent"
+        android:layout_height="400dp"
+        android:text="item" />
+
 
 
 </LinearLayout>
