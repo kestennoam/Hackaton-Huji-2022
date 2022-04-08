@@ -47,9 +47,9 @@ public class ResultItemAdapter extends RecyclerView.Adapter<ResultItemViewHolder
 
         Log.d("ResultItemAdapter", "item: " + item);
         holder.getNameValueTextView().setText(item.getName());
-        holder.getOwnerValueTextView().setText("Noam Kesten");
+//        holder.getOwnerValueTextView().setText("Noam Kesten");
         holder.getPriceValueTextView().setText(String.valueOf(item.getPrice()));
-        holder.getDescriptionValueTextView().setText(item.getDescription());
+//        holder.getDescriptionValueTextView().setText(item.getDescription());
     }
 
     @Override
